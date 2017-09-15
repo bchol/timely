@@ -1,0 +1,271 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Timesheet Demo Queries",
+		"_postman_id": "87be65db-f221-0b44-94bf-6fcf731f0d25",
+		"description": "Sample queries for simple RESTful timesheet-handling service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Upload CSV",
+			"request": {
+				"url": "http://localhost:8081/tasks/upload",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "file",
+					"file": {
+						"src": ""
+					}
+				},
+				"description": "Upload CSV file."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Entry",
+			"request": {
+				"url": "http://localhost:8080/timeEntry",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"date\":\"4/3/2017\",\"client\":\"clientXYZ\",\"project\":\"projABC\",\"projectCode\":\"someCode\",\"task\":\"someTask\",\"hours\":\"1.0\",\"hoursRounded\":1,\"isBillable\":\"yes\",\"isInvoiced\":\"yes\",\"isApproved\":\"yes\",\"firstName\":\"dave\",\"lastName\":\"crosby\",\"department\":\"Sales\",\"isEmployee\":\"yes\",\"billableRate\":40,\"costRate\":0,\"costAmount\":0,\"currency\":\"btc\",\"externalRefURL\":\"\"}"
+				},
+				"description": "Add a single, specific, entry."
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Entry",
+			"request": {
+				"url": "http://localhost:8080/timeEntry",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"date\":\"4/3/2017\",\"client\":\"clientXYZ\",\"project\":\"projABC\",\"projectCode\":\"someCode\",\"task\":\"someTask\",\"hours\":\"1.0\",\"hoursRounded\":1,\"isBillable\":\"yes\",\"isInvoiced\":\"yes\",\"isApproved\":\"yes\",\"firstName\":\"dave\",\"lastName\":\"crosby\",\"department\":\"Sales\",\"isEmployee\":\"yes\",\"billableRate\":40,\"costRate\":0,\"costAmount\":0,\"currency\":\"btc\",\"externalRefURL\":\"\"}"
+				},
+				"description": "Delete a single, specific, entry."
+			},
+			"response": []
+		},
+		{
+			"name": "GET all of a lastName",
+			"request": {
+				"url": {
+					"raw": "http://localhost:8080/timeEntry?lastName=Crosby",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"timeEntry"
+					],
+					"query": [
+						{
+							"key": "lastName",
+							"value": "Crosby",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Get all entries with a given lastName."
+			},
+			"response": []
+		},
+		{
+			"name": "GET all of a lastName, starting at a Date",
+			"request": {
+				"url": {
+					"raw": "http://localhost:8080/timeEntry?lastName=Cholewka&start=2017-09-09",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"timeEntry"
+					],
+					"query": [
+						{
+							"key": "lastName",
+							"value": "Cholewka",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "start",
+							"value": "2017-09-09",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Get all entries with a given lastName, for a date on-or-after a give 'start' date."
+			},
+			"response": []
+		},
+		{
+			"name": "GET all with 3 field/values, remove 2 fields from output",
+			"request": {
+				"url": {
+					"raw": "http://localhost:8080/timeEntry?client=Twitri&lastName=Kim&task=Engineering&removeFields=task,date",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"timeEntry"
+					],
+					"query": [
+						{
+							"key": "client",
+							"value": "Twitri",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "lastName",
+							"value": "Kim",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "task",
+							"value": "Engineering",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "removeFields",
+							"value": "task,date",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Find an entry that matches three field/values, and remove the task and date fields from the output"
+			},
+			"response": []
+		},
+		{
+			"name": "GET all with 3 field/values, specify 6 fields to include in output",
+			"request": {
+				"url": {
+					"raw": "http://localhost:8080/timeEntry?client=Twitri&lastName=Kim&task=Engineering&showFields=client,lastName,project,task,department,projectCode",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"timeEntry"
+					],
+					"query": [
+						{
+							"key": "client",
+							"value": "Twitri",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "lastName",
+							"value": "Kim",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "task",
+							"value": "Engineering",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "showFields",
+							"value": "client,lastName,project,task,department,projectCode",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Find an entry that matches three field/values, and include 6 specific fields in the output"
+			},
+			"response": []
+		},
+		{
+			"name": "GET all of a lastName, between two dates",
+			"request": {
+				"url": {
+					"raw": "http://localhost:8080/timeEntry?lastName=Kim&start=2017-04-04&end=2017-04-06",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"timeEntry"
+					],
+					"query": [
+						{
+							"key": "lastName",
+							"value": "Kim",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "start",
+							"value": "2017-04-04",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "end",
+							"value": "2017-04-06",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Get all entries with a given lastName, between a 'start' and 'end' date (inclusive)"
+			},
+			"response": []
+		}
+	]
+}
