@@ -1,6 +1,6 @@
 # Timely
 
-How to start the someName application
+How to start the Timely application
 ---
 
 1. Run `mvn clean install` to build your application
